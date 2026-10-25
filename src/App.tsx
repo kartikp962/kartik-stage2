@@ -1,26 +1,28 @@
-import { useKycStatus, useProperties } from './api/queries'
-import { KYCStatusBanner } from './components/KYCStatusBanner/KYCStatusBanner'
-import { PropertyCard } from './components/PropertyCard/PropertyCard'
+import { PropertyDetailPlaceholder } from './pages/PropertyDetailPlaceholder'
+import { PropertyListingPage } from './pages/PropertyListingPage/PropertyListingPage'
 
-// Temporary placeholder to preview the components with the mock data.
-// Replaced by PropertyListingPage in Step 5.
+const PROPERTY_DETAIL_PATH = /^\/properties\/([^/]+)\/?$/
+
+// Minimal path matching instead of a router: there is only one real page.
+// A router (e.g. React Router / TanStack Router) would replace this once
+// the detail page exists.
+function getPropertyIdFromPath(pathname: string): string | null {
+  const match = PROPERTY_DETAIL_PATH.exec(pathname)
+  if (!match) return null
+  try {
+    return decodeURIComponent(match[1])
+  } catch {
+    return null // malformed %-encoding; fall back to the listing
+  }
+}
+
 function App() {
-  const properties = useProperties()
-  const kyc = useKycStatus()
+  const propertyId = getPropertyIdFromPath(window.location.pathname)
 
-  return (
-    <main className="container py-5">
-      <h1 className="h3 mb-4">CubeSquare — component preview</h1>
-      {kyc.data && <KYCStatusBanner status={kyc.data} />}
-      <div className="row g-4">
-        {properties.data?.map((property) => (
-          <div key={property.id} className="col-12 col-md-6 col-lg-4">
-            <PropertyCard property={property} currency="AED" />
-          </div>
-        ))}
-      </div>
-    </main>
-  )
+  if (propertyId !== null) {
+    return <PropertyDetailPlaceholder propertyId={propertyId} />
+  }
+  return <PropertyListingPage />
 }
 
 export default App

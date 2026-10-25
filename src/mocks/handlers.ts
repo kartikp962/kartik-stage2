@@ -12,6 +12,7 @@ const DEFAULT_KYC_STATUS: KycStatus = 'pending';
 //   ?scenario=error   -> GET /properties returns 500
 //   ?scenario=empty   -> GET /properties returns []
 //   ?kyc=pending|rejected|approved -> GET /investor/kyc status
+//   ?kyc=error        -> GET /investor/kyc returns 500
 // This is a mock-only concern; real endpoints obviously don't read the page URL.
 function pageParam(name: string): string | null {
   return new URLSearchParams(window.location.search).get(name);
@@ -35,6 +36,9 @@ export const handlers = [
     await delay(MOCK_LATENCY_MS);
 
     const requested = pageParam('kyc');
+    if (requested === 'error') {
+      return HttpResponse.json({ message: 'Internal server error' }, { status: 500 });
+    }
     const status = isKycStatus(requested) ? requested : DEFAULT_KYC_STATUS;
     return HttpResponse.json({ status });
   }),
