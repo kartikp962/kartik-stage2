@@ -10,6 +10,12 @@ export interface Property {
   yieldPercent: number;
 }
 
+// ISO 4217 codes for the markets we serve. Adding a market means adding it
+// here, and TypeScript then checks every place a currency is passed.
+export const SUPPORTED_CURRENCIES = ['AED', 'USD'] as const;
+
+export type CurrencyCode = (typeof SUPPORTED_CURRENCIES)[number];
+
 // Single list of valid statuses: the union type and the runtime check
 // are both derived from it, so they can never disagree.
 export const KYC_STATUSES = ['pending', 'rejected', 'approved'] as const;
