@@ -1,0 +1,7 @@
+// Application stylesheet entry point.
+//
+// Order matters: Bootstrap declares its variables with !default, so our
+// overrides must be imported BEFORE Bootstrap for them to take effect.
+
+@import "theme";
+@import "bootstrap/scss/bootstrap";
