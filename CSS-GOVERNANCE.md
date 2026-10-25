@@ -1,0 +1,7 @@
+# CSS Governance Note
+
+**Theme structure.** `src/styles/_theme.scss` is the single, designer-owned source of truth. It contains only Bootstrap Sass variable overrides (primary colour, border radius, font family) and no selectors. `main.scss` imports it before Bootstrap, so Bootstrap's `!default` variables use our values. Components have no custom CSS at all: they use Bootstrap classes, and status colours come from the contextual system (`alert-warning`, `alert-danger`, `bg-warning`).
+
+**PR enforcement.** Already in this repo: Stylelint bans hex colours and requires variables or functions for colour, radius, font and spacing properties in every file except `_theme.scss`. oxlint bans `any` and inline `style` props. The one exception, a data-driven progress-bar width, has a disable comment explaining why. I would make `npm run lint` and `npm run build` required CI checks, add a CODEOWNERS rule requiring design approval for `src/styles/**`, and add a PR checklist item: "No new design values; missing tokens requested from design."
+
+**White-label theming.** Each operator gets a theme file (`themes/_operator-a.scss`) that overrides the same documented token contract and never touches component code. The build compiles one CSS bundle per operator, and runtime `--bs-*` CSS variables cover small adjustments without a rebuild. Operator themes are owned by design through CODEOWNERS, and CI runs visual regression tests per theme, so a token change can't silently break one operator's brand.
