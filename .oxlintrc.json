@@ -3,6 +3,18 @@
   "plugins": ["react", "typescript", "oxc"],
   "rules": {
     "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
+    "react/only-export-components": ["warn", { "allowConstantExport": true }],
+    "typescript/no-explicit-any": "error",
+    "react/forbid-dom-props": [
+      "error",
+      {
+        "forbid": [
+          {
+            "propName": "style",
+            "message": "Use Bootstrap classes or theme tokens. Inline styles are only allowed for data-driven values, with a disable comment explaining why."
+          }
+        ]
+      }
+    ]
   }
 }

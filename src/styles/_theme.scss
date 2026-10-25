@@ -1,6 +1,6 @@
 // CubeSquare theme — the single source of truth for design tokens.
 // Owned by the UI Designer. Values here must match the Figma variables.
-//
+
 // Rules:
 // - Only Bootstrap Sass variable overrides live here (no selectors, no CSS output).
 // - Components never hardcode these values; they use Bootstrap classes,
@@ -22,7 +22,7 @@ $font-family-sans-serif:
   system-ui,
   -apple-system,
   "Segoe UI",
-  Roboto,
+  "Roboto",
   "Helvetica Neue",
-  Arial,
+  "Arial",
   sans-serif;

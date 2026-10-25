@@ -1,12 +1,16 @@
 {
   "name": "cubesquare-listing",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "lint": "oxlint",
+    "lint": "oxlint && npm run lint:styles",
+    "lint:styles": "stylelint \"src/**/*.scss\"",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -24,6 +28,9 @@
     "msw": "^3.0.3",
     "oxlint": "^1.88.0",
     "sass-embedded": "^1.106.1",
+    "stylelint": "^17.16.0",
+    "stylelint-config-standard-scss": "^17.0.0",
+    "stylelint-declaration-strict-value": "^1.12.1",
     "typescript": "~6.0.3",
     "vite": "^8.3.4"
   },

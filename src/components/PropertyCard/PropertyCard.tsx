@@ -72,9 +72,9 @@ export function PropertyCard({ property, currency }: PropertyCardProps) {
             aria-valuemin={0}
             aria-valuemax={100}
           >
-            {/* Width is data-driven (not a design token), so an inline style is appropriate here. */}
             <div
               className={`progress-bar ${display.progressBarClassName}`}
+              // oxlint-disable-next-line react/forbid-dom-props -- width is data (tokens available), not a design value
               style={{ width: `${availablePercent}%` }}
             />
           </div>
